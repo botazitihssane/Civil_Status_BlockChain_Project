@@ -10,7 +10,7 @@ import java.util.List;
 public class Block {
 	private Long index;
 	private Long timestamp;
-	private List<Transaction> data;
+	private List<Acte> actes;
 	private Long proof;
 	private String previousBlockHash;
 	public static final Long GENESIS_BLOCK_PROOF = 100L;
@@ -28,9 +28,10 @@ public class Block {
 		return proof;
 	}
 
-	public List<Transaction> getTransactionList() {
-		return data;
+	public List<Acte> getTransactionList() {
+		return actes;
 	}
+	
 
 	public Block() {
 	}
@@ -38,7 +39,7 @@ public class Block {
 	public Block(Builder builder) {
 		this.index = builder.index;
 		this.timestamp = builder.timestamp;
-		this.data = builder.data;
+		this.actes = builder.actes;
 		this.proof = builder.proof;
 		this.previousBlockHash = builder.previousBlockHash;
 	}
@@ -46,7 +47,7 @@ public class Block {
 	public static class Builder {
 		private Long index;
 		private Long timestamp;
-		private List<Transaction> data;
+		private List<Acte> actes;
 		private Long proof;
 		private String previousBlockHash;
 
@@ -60,8 +61,8 @@ public class Block {
 			return this;
 		}
 
-		public Builder data(List<Transaction> data) {
-			this.data = data;
+		public Builder data(List<Acte> actes) {
+			this.actes = actes;
 			return this;
 		}
 

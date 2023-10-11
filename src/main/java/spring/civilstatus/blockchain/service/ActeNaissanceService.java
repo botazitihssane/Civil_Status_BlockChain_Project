@@ -1,6 +1,6 @@
 package spring.civilstatus.blockchain.service;
 
-import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -11,22 +11,20 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import lombok.Data;
-import lombok.extern.slf4j.Slf4j;
+import spring.civilstatus.blockchain.domain.Acte;
+import spring.civilstatus.blockchain.domain.ActeNaissance;
 import spring.civilstatus.blockchain.domain.Block;
-import spring.civilstatus.blockchain.domain.Transaction;
 import spring.civilstatus.blockchain.util.BlockProofOfWorkGenerator;
-
 @Service
-public class BlockChain {
+public class ActeNaissanceService {
 	private List<Block> chain;
-	private List<Transaction> currentTransactions;
+	private List<Acte> currentTransactions;
 
 	@Autowired
 	private ObjectMapper mapper;
 	
 	 @Autowired
-	    public BlockChain(ObjectMapper mapper) {
+	 public ActeNaissanceService(ObjectMapper mapper) {
 	        this.chain = new ArrayList<>();
 	        this.currentTransactions = new ArrayList<>();
 	        try {
@@ -34,17 +32,17 @@ public class BlockChain {
 			} catch (JsonProcessingException e) {
 				e.printStackTrace();
 			}
-	   }
+	 }
+	 
 	public void Blockchain() throws JsonProcessingException {
-
 		chain = new ArrayList<>();
 		currentTransactions = new ArrayList<>();
 		createBlock(Block.GENESIS_BLOCK_PROOF, Block.GENESIS_BLOCK_PREV_HASH);
 	}
 
-	public Long addTransaction(String sender, String recipient, BigDecimal amount) {
-		Transaction transaction = Transaction.builder().sender(sender).recipient(recipient).amount(amount).build();
-		currentTransactions.add(transaction);
+	public Long addTransaction(int id, String typeEnregistrement, LocalDate dateEnregistrement, String lieuEnregistrement, String nouveauNe, String typeNaissance, String declarant , String relationAvecNouveauNe) {
+		ActeNaissance acte = new ActeNaissance(id,typeEnregistrement, dateEnregistrement,lieuEnregistrement, nouveauNe,typeNaissance,declarant,relationAvecNouveauNe);
+		currentTransactions.add(acte);
 		return lastBlock().getIndex() + 1L;
 	}
 
@@ -93,11 +91,11 @@ public class BlockChain {
 		this.chain = chain;
 	}
 
-	public List<Transaction> getCurrentTransactions() {
+	public List<Acte> getCurrentTransactions() {
 		return currentTransactions;
 	}
 
-	public void setCurrentTransactions(List<Transaction> currentTransactions) {
+	public void setCurrentTransactions(List<Acte> currentTransactions) {
 		this.currentTransactions = currentTransactions;
 	}
 
@@ -108,5 +106,6 @@ public class BlockChain {
 	public void setMapper(ObjectMapper mapper) {
 		this.mapper = mapper;
 	}
-
+	
+	
 }
