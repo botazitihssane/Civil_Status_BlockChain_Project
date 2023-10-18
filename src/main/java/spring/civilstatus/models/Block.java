@@ -1,4 +1,4 @@
-package spring.civilstatus.blockchain.domain;
+package spring.civilstatus.models;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -31,14 +31,13 @@ public class Block {
 	public List<Acte> getTransactionList() {
 		return actes;
 	}
-	
 
 	public Block() {
 	}
 
 	public Block(Builder builder) {
 		this.index = builder.index;
-		this.timestamp = builder.timestamp;
+		this.setTimestamp(builder.timestamp);
 		this.actes = builder.actes;
 		this.proof = builder.proof;
 		this.previousBlockHash = builder.previousBlockHash;
@@ -84,6 +83,14 @@ public class Block {
 	public String hash(ObjectMapper mapper) throws JsonProcessingException {
 		String json = mapper.writeValueAsString(this);
 		return Hashing.sha256().hashString(json, StandardCharsets.UTF_8).toString();
+	}
+
+	public Long getTimestamp() {
+		return timestamp;
+	}
+
+	public void setTimestamp(Long timestamp) {
+		this.timestamp = timestamp;
 	}
 
 }

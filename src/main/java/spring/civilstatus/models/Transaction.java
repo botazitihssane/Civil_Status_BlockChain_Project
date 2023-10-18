@@ -1,4 +1,4 @@
-package spring.civilstatus.blockchain.domain;
+package spring.civilstatus.models;
 
 import java.math.BigDecimal;
 

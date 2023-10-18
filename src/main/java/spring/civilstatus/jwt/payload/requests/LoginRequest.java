@@ -1,7 +1,12 @@
-package spring.civilstatus.models.requests;
+package spring.civilstatus.jwt.payload.requests;
+
+import jakarta.validation.constraints.NotBlank;
 
 public class LoginRequest {
+	@NotBlank
 	private String username;
+
+	@NotBlank
 	private String password;
 
 	public String getUsername() {

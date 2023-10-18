@@ -2,7 +2,7 @@ package spring.civilstatus.blockchain.response;
 
 import java.util.List;
 
-import spring.civilstatus.blockchain.domain.Block;
+import spring.civilstatus.models.Block;
 
 public class ChainResponse {
 	private Integer length;

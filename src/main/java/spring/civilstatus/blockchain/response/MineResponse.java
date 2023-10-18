@@ -1,7 +1,8 @@
 package spring.civilstatus.blockchain.response;
 
 import java.util.List;
-import spring.civilstatus.blockchain.domain.Acte;
+
+import spring.civilstatus.models.Acte;
 
 public class MineResponse {
 	private String message;

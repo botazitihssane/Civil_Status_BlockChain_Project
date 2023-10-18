@@ -1,7 +1,6 @@
 package spring.civilstatus.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,13 +20,7 @@ import spring.civilstatus.service.UserDetailsServiceImpl;
 
 @Configuration
 @EnableMethodSecurity
-//(securedEnabled = true,
-//jsr250Enabled = true,
-//prePostEnabled = true) // by default
 public class WebSecurityConfig {
-
-	@Value("${spring.h2.console.path}")
-	private String h2ConsolePath;
 
 	@Autowired
 	UserDetailsServiceImpl userDetailsService;
@@ -65,13 +58,7 @@ public class WebSecurityConfig {
 		http.csrf(csrf -> csrf.disable())
 				.exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-				.authorizeHttpRequests(auth -> auth.requestMatchers("/api/auth/**").permitAll()
-						.requestMatchers("/api/test/**").permitAll().anyRequest().authenticated());
-
-		// fix H2 database console: Refused to display ' in a frame because it set
-		// 'X-Frame-Options' to 'deny'
-		http.headers(headers -> headers.frameOptions(frameOption -> frameOption.sameOrigin()));
-
+				.authorizeHttpRequests(auth -> auth.requestMatchers("/api/**").permitAll());
 		http.authenticationProvider(authenticationProvider());
 
 		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);

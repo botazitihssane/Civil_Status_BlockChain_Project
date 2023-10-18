@@ -21,13 +21,13 @@ import io.jsonwebtoken.security.Keys;
 public class JwtUtils {
   private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
-  @Value("${bezkoder.app.jwtSecret}")
+  @Value("${spring.civilStatus.jwtSecret}")
   private String jwtSecret;
 
-  @Value("${bezkoder.app.jwtExpirationMs}")
+  @Value("${spring.civilStatus.jwtExpirationMs}")
   private int jwtExpirationMs;
 
-  @Value("${bezkoder.app.jwtCookieName}")
+  @Value("${spring.civilStatus.jwtCookieName}")
   private String jwtCookie;
 
   public String getJwtFromCookies(HttpServletRequest request) {
