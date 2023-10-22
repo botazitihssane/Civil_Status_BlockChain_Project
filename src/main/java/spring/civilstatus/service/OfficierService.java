@@ -7,7 +7,7 @@ import spring.civilstatus.models.Officier;
 public interface OfficierService {
 	Officier createOfficier(Officier officier);
 
-	Officier getOfficier(int id);
+	Officier getOfficier(Long id);
 
 	List<Officier> getAllOfficiers();
 

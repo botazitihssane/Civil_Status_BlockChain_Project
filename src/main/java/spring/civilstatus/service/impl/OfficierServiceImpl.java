@@ -20,7 +20,7 @@ public class OfficierServiceImpl implements OfficierService {
 	}
 
 	@Override
-	public Officier getOfficier(int id) {
+	public Officier getOfficier(Long id) {
 		return officierRepository.getOfficierById(id);
 	}
 
@@ -40,9 +40,7 @@ public class OfficierServiceImpl implements OfficierService {
 		if (o != null) {
 			o.setNom(officier.getNom());
 			o.setPrenom(officier.getPrenom());
-			o.setCin(officier.getCin());
 			o.setEmail(officier.getEmail());
-			o.setTelephone(officier.getTelephone());
 			o.setGrade(officier.getGrade());
 			officierRepository.save(o);
 		}

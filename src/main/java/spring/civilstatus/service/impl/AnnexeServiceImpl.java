@@ -43,7 +43,6 @@ public class AnnexeServiceImpl implements AnnexeService {
 	public void updateAnnexe(Annexe annexe) {
 		Annexe a = getAnnexe(annexe.getId());
 		if (a != null) {
-			a.setAdresseAnnexe(annexe.getAdresseAnnexe());
 			a.setNomAnnexe(annexe.getNomAnnexe());
 			a.setArrondissement(annexe.getArrondissement());
 			annexeRepository.save(a);

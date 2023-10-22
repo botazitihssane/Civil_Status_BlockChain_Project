@@ -5,6 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -14,9 +15,10 @@ public class Annexe {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String nomAnnexe;
-	private String adresseAnnexe;
 	@ManyToOne
 	private Arrondissement arrondissement;
+	@OneToOne
+	private Officier officier;
 
 	public int getId() {
 		return id;
@@ -34,14 +36,6 @@ public class Annexe {
 		this.nomAnnexe = nomAnnexe;
 	}
 
-	public String getAdresseAnnexe() {
-		return adresseAnnexe;
-	}
-
-	public void setAdresseAnnexe(String adresseAnnexe) {
-		this.adresseAnnexe = adresseAnnexe;
-	}
-
 	public Arrondissement getArrondissement() {
 		return arrondissement;
 	}
@@ -50,17 +44,25 @@ public class Annexe {
 		this.arrondissement = arrondissement;
 	}
 
-	public Annexe(int id, String nomAnnexe, String adresseAnnexe, Arrondissement arrondissement) {
-		super();
-		this.id = id;
-		this.nomAnnexe = nomAnnexe;
-		this.adresseAnnexe = adresseAnnexe;
-		this.arrondissement = arrondissement;
+	public Officier getOfficier() {
+		return officier;
+	}
+
+	public void setOfficier(Officier officier) {
+		this.officier = officier;
 	}
 
 	public Annexe() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+	public Annexe(int id, String nomAnnexe, Arrondissement arrondissement, Officier officier) {
+		super();
+		this.id = id;
+		this.nomAnnexe = nomAnnexe;
+		this.arrondissement = arrondissement;
+		this.officier = officier;
 	}
 
 }

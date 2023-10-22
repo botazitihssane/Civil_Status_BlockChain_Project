@@ -44,7 +44,7 @@ public class OfficierController {
 	}
 
 	@GetMapping(value = "/officier/{officierId}", produces = { "application/json", "application/xml" })
-	public ResponseEntity<Officier> getOfficierById(@PathVariable int officierId) {
+	public ResponseEntity<Officier> getOfficierById(@PathVariable Long officierId) {
 		Officier result = officierService.getOfficier(officierId);
 		return ResponseEntity.ok().body(result);
 	}

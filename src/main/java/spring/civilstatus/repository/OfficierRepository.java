@@ -10,7 +10,7 @@ import spring.civilstatus.models.Officier;
 
 public interface OfficierRepository extends JpaRepository<Officier, Long> {
 	@Query("Select o from Officier o where o.id=:id")
-	Officier getOfficierById(@Param("id") int id);
+	Officier getOfficierById(@Param("id") Long id);
 
 	@Query("SELECT o FROM Officier o WHERE LOWER(o.nom) LIKE CONCAT('%', LOWER(:terme), '%') OR LOWER(o.prenom) LIKE CONCAT('%', LOWER(:terme), '%') OR LOWER(o.grade) LIKE CONCAT('%', LOWER(:terme), '%')")
 	List<Officier> getOfficiersByNomOrPrenomOrGrade(@Param("terme") String terme);

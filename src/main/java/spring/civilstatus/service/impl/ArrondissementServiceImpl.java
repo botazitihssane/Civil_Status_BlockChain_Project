@@ -43,13 +43,8 @@ public class ArrondissementServiceImpl implements ArrondissementService {
 	public void updateArrondissement(Arrondissement arrondissement) {
 		Arrondissement a = getArrondissement(arrondissement.getId());
 		if (a != null) {
-			a.setAdresseArrondissement(arrondissement.getAdresseArrondissement());
-			a.setCodePostal(arrondissement.getCodePostal());
 			a.setNomArrondissement(arrondissement.getNomArrondissement());
-			a.setPays(arrondissement.getPays());
 			a.setPopulation(arrondissement.getPopulation());
-			a.setSuperficie(arrondissement.getSuperficie());
-			a.setVille(arrondissement.getVille());
 			arrondissementRepository.save(a);
 		}
 	}

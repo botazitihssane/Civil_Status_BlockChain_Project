@@ -1,11 +1,10 @@
 package spring.civilstatus.models;
 
-import java.util.List;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -15,12 +14,19 @@ public class Arrondissement {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String nomArrondissement;
-	private String ville;
-	private String pays;
-	private int codePostal;
 	private int population;
-	private float superficie;
-	private String adresseArrondissement;
+	@ManyToOne
+	private Prefecture prefecture;
+	private String ville;
+
+	public Arrondissement(int id, String nomArrondissement, int population, Prefecture prefecture, String ville) {
+		super();
+		this.id = id;
+		this.nomArrondissement = nomArrondissement;
+		this.population = population;
+		this.prefecture = prefecture;
+		this.ville = ville;
+	}
 
 	public int getId() {
 		return id;
@@ -38,28 +44,12 @@ public class Arrondissement {
 		this.nomArrondissement = nomArrondissement;
 	}
 
-	public String getVille() {
-		return ville;
+	public Prefecture getPrefecture() {
+		return prefecture;
 	}
 
-	public void setVille(String ville) {
-		this.ville = ville;
-	}
-
-	public String getPays() {
-		return pays;
-	}
-
-	public void setPays(String pays) {
-		this.pays = pays;
-	}
-
-	public int getCodePostal() {
-		return codePostal;
-	}
-
-	public void setCodePostal(int codePostal) {
-		this.codePostal = codePostal;
+	public void setPrefecture(Prefecture prefecture) {
+		this.prefecture = prefecture;
 	}
 
 	public int getPopulation() {
@@ -70,33 +60,12 @@ public class Arrondissement {
 		this.population = population;
 	}
 
-	public float getSuperficie() {
-		return superficie;
+	public String getVille() {
+		return ville;
 	}
 
-	public void setSuperficie(float superficie) {
-		this.superficie = superficie;
-	}
-
-	public String getAdresseArrondissement() {
-		return adresseArrondissement;
-	}
-
-	public void setAdresseArrondissement(String adresseArrondissement) {
-		this.adresseArrondissement = adresseArrondissement;
-	}
-
-	public Arrondissement(int id, String nomArrondissement, String ville, String pays, int codePostal, int population,
-			float superficie, String adresseArrondissement, List<String> quartiers) {
-		super();
-		this.id = id;
-		this.nomArrondissement = nomArrondissement;
+	public void setVille(String ville) {
 		this.ville = ville;
-		this.pays = pays;
-		this.codePostal = codePostal;
-		this.population = population;
-		this.superficie = superficie;
-		this.adresseArrondissement = adresseArrondissement;
 	}
 
 	public Arrondissement() {
