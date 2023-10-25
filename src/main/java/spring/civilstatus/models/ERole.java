@@ -1,5 +1,5 @@
 package spring.civilstatus.models;
 
 public enum ERole {
-	ROLE_USER, ROLE_MODERATOR, ROLE_ADMIN
+    ROLE_AGENT, ROLE_OFFICIER, ROLE_ADMIN, ROLE_MINISTERE
 }

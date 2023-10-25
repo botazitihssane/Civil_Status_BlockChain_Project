@@ -14,4 +14,7 @@ public interface AnnexeRepository extends JpaRepository<Annexe, Long> {
 
 	@Query("Select a from Annexe a where a.id=:id")
 	Annexe getAnnexeById(@Param("id") int id);
+
+	@Query("Select a from Annexe a where a.nomAnnexe=:name")
+	Annexe findByName(String name);
 }

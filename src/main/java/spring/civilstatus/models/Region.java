@@ -59,4 +59,9 @@ public class Region {
 		this.population = population;
 	}
 
+	public Region() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 }

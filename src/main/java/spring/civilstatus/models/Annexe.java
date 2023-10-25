@@ -5,7 +5,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -17,8 +16,6 @@ public class Annexe {
 	private String nomAnnexe;
 	@ManyToOne
 	private Arrondissement arrondissement;
-	@OneToOne
-	private Officier officier;
 
 	public int getId() {
 		return id;
@@ -44,25 +41,16 @@ public class Annexe {
 		this.arrondissement = arrondissement;
 	}
 
-	public Officier getOfficier() {
-		return officier;
-	}
-
-	public void setOfficier(Officier officier) {
-		this.officier = officier;
-	}
-
 	public Annexe() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Annexe(int id, String nomAnnexe, Arrondissement arrondissement, Officier officier) {
+	public Annexe(int id, String nomAnnexe, Arrondissement arrondissement) {
 		super();
 		this.id = id;
 		this.nomAnnexe = nomAnnexe;
 		this.arrondissement = arrondissement;
-		this.officier = officier;
 	}
 
 }

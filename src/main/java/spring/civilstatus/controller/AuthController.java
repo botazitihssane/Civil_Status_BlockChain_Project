@@ -2,6 +2,7 @@ package spring.civilstatus.controller;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -11,11 +12,14 @@ import spring.civilstatus.jwt.payload.requests.LoginRequest;
 import spring.civilstatus.jwt.payload.requests.SignupRequest;
 import spring.civilstatus.jwt.payload.responses.MessageResponse;
 import spring.civilstatus.jwt.payload.responses.UserInfoResponse;
+import spring.civilstatus.models.Annexe;
 import spring.civilstatus.models.ERole;
 import spring.civilstatus.models.Role;
 import spring.civilstatus.models.User;
+import spring.civilstatus.repository.AnnexeRepository;
 import spring.civilstatus.repository.RoleRepository;
 import spring.civilstatus.repository.UserRepository;
+import spring.civilstatus.service.ExcelService;
 import spring.civilstatus.service.UserDetailsImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +54,13 @@ public class AuthController {
 	PasswordEncoder encoder;
 
 	@Autowired
+	AnnexeRepository annexeRepository;
+
+	@Autowired
 	JwtUtils jwtUtils;
+
+	@Autowired
+	ExcelService excelService;
 
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
@@ -81,45 +91,32 @@ public class AuthController {
 			return ResponseEntity.badRequest().body(new MessageResponse("Error: Email is already in use!"));
 		}
 
-		// Create new user's account
-		User user = new User(signUpRequest.getUsername(), signUpRequest.getEmail(),
-				encoder.encode(signUpRequest.getPassword()));
+		Map<String, String> emailRoleMap = excelService
+				.readExcelFile("C:\\Users\\Ihssane\\Desktop\\Stage d'été 2023\\Civil status data.xlsx");
+		String email = signUpRequest.getEmail();
+		String role = excelService.getRoleFromExcel(email, emailRoleMap);
 
-		Set<String> strRoles = signUpRequest.getRole();
-		Set<Role> roles = new HashSet<>();
-
-		if (strRoles == null) {
-			Role userRole = roleRepository.findByName(ERole.ROLE_USER)
-					.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-			roles.add(userRole);
-		} else {
-			strRoles.forEach(role -> {
-				switch (role) {
-				case "admin":
-					Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
-							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-					roles.add(adminRole);
-
-					break;
-				case "mod":
-					Role modRole = roleRepository.findByName(ERole.ROLE_MODERATOR)
-							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-					roles.add(modRole);
-
-					break;
-				default:
-					Role userRole = roleRepository.findByName(ERole.ROLE_USER)
-							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-					roles.add(userRole);
-				}
-			});
+		if (role == null) {
+			return ResponseEntity.badRequest()
+					.body(new MessageResponse("Error: Role not found for the provided email."));
 		}
 
-		user.setRoles(roles);
-		userRepository.save(user);
+			// Create new user's account
+			User user = new User(signUpRequest.getUsername(), signUpRequest.getEmail(),
+					encoder.encode(signUpRequest.getPassword()));
 
-		return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
-	}
+			// Assign the role obtained from Excel
+			Role userRole = roleRepository.findByName(ERole.valueOf("ROLE_" + role.toUpperCase()))
+					.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+			Set<Role> roles = new HashSet<>();
+			roles.add(userRole);
+			user.setRoles(roles);
+			// Save the user
+			userRepository.save(user);
+
+			return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+		}
+	
 
 	@PostMapping("/signout")
 	public ResponseEntity<?> logoutUser() {

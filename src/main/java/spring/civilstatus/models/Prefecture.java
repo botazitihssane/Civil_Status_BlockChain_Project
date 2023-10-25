@@ -58,4 +58,9 @@ public class Prefecture {
 		this.region = region;
 	}
 
+	public Prefecture() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 }
