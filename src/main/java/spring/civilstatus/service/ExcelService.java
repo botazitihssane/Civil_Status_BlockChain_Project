@@ -37,13 +37,6 @@ public class ExcelService {
 					String role = row.getCell(1).getStringCellValue();
 					emailRoleMap.put(email, role);
 
-					String lieuDeTravail = row.getCell(2).getStringCellValue();
-					Annexe annexe = annexeRepository.findByName(lieuDeTravail);
-					if (annexe == null) {
-						annexe = new Annexe();
-						annexe.setNomAnnexe(lieuDeTravail);
-						annexeRepository.save(annexe);
-					}
 				}
 			}
 		} catch (IOException | java.io.IOException e) {
@@ -52,20 +45,35 @@ public class ExcelService {
 
 		return emailRoleMap;
 	}
+	
+	public Map<String,String> getLieuTravail(String path){
+		Map<String,String> lieu = new HashMap<>();
+		try (Workbook workbook = new XSSFWorkbook(path)) {
+			Sheet sheet = workbook.getSheetAt(0);
 
+			for (Row row : sheet) {
+				if (row.getCell(0) != null && row.getCell(1) != null && row.getCell(2) != null) {
+					String email = row.getCell(0).getStringCellValue();
+					String l = row.getCell(2).getStringCellValue();
+					lieu.put(email, l);
+
+				}
+			}
+		} catch (IOException | java.io.IOException e) {
+			e.printStackTrace();
+		}
+
+		return lieu;
+	}
+	
+	public Annexe getLieu(String email,Map<String,String> lieu) {
+		String l = lieu.get(email);
+		Annexe a=annexeRepository.findByName(l);
+		return a;
+	}
+ 
 	public String getRoleFromExcel(String email, Map<String, String> emailRoleMap) {
 		return emailRoleMap.get(email);
 	}
 
-	public String getLieuDeTravailFromExcel(String email, Map<String, String> emailRoleMap) {
-		for (Map.Entry<String, String> entry : emailRoleMap.entrySet()) {
-			if (entry.getKey().equals(email)) {
-				String[] values = entry.getValue().split(",");
-				if (values.length >= 3) {
-					return values[2];
-				}
-			}
-		}
-		return null; 
-	}
 }

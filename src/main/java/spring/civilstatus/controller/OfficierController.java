@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import spring.civilstatus.models.Annexe;
 import spring.civilstatus.models.Officier;
 import spring.civilstatus.service.OfficierService;
 
@@ -29,6 +30,12 @@ import spring.civilstatus.service.OfficierService;
 public class OfficierController {
 	@Autowired
 	private OfficierService officierService;
+
+	@GetMapping(value = "/officier/annexe", produces = { "application/json", "application/xml" })
+	public ResponseEntity<Annexe> getAnnexeOfficier(@Valid @RequestBody Long id) {
+		Annexe result = officierService.getAnnexeOfficier(id);
+		return ResponseEntity.status(HttpStatus.CREATED).body(result);
+	}
 
 	@PostMapping(value = "/officier", produces = { "application/json", "application/xml" }, consumes = {
 			"application/json", "application/xml" })

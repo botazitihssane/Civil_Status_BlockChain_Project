@@ -37,16 +37,22 @@ public class Officier extends User {
 		this.grade = grade;
 	}
 
-	public Officier(String prenom, String nom, String cin, String grade) {
-		super();
-		this.prenom = prenom;
-		this.nom = nom;
-		this.grade = grade;
+	public Annexe getAnnexe() {
+		return annexe;
+	}
+
+	public void setAnnexe(Annexe annexe) {
+		this.annexe = annexe;
 	}
 
 	public Officier() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+	public Officier(String username, String email, String password, Annexe annexe) {
+		super(username, email, password);
+		this.annexe = annexe;
 	}
 
 }

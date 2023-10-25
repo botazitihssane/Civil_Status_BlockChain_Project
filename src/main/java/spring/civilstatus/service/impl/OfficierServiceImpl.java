@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import spring.civilstatus.models.Annexe;
 import spring.civilstatus.models.Officier;
 import spring.civilstatus.repository.OfficierRepository;
 import spring.civilstatus.service.OfficierService;
@@ -54,6 +55,11 @@ public class OfficierServiceImpl implements OfficierService {
 	@Override
 	public List<Officier> getOfficierByGrade(String grade) {
 		return officierRepository.getOfficiersByGrade(grade);
+	}
+
+	@Override
+	public Annexe getAnnexeOfficier(Long id) {
+		return officierRepository.findAnnexeByOfficierId(id);
 	}
 
 }

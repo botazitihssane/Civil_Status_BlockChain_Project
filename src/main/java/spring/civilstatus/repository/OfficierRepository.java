@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import spring.civilstatus.models.Annexe;
 import spring.civilstatus.models.Officier;
 
 public interface OfficierRepository extends JpaRepository<Officier, Long> {
@@ -17,4 +18,7 @@ public interface OfficierRepository extends JpaRepository<Officier, Long> {
 
 	@Query("Select o from Officier o where o.grade=:grade")
 	List<Officier> getOfficiersByGrade(@Param("grade") String grade);
+
+	@Query("SELECT o.annexe FROM Officier o WHERE o.id = :id")
+	Annexe findAnnexeByOfficierId(@Param("id") Long id);
 }
