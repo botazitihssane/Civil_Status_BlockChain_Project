@@ -56,7 +56,7 @@ public class RegistreController {
 	}
 
 	@GetMapping(value = "/registre/annexe/{annexeId}", produces = { "application/json", "application/xml" })
-	public ResponseEntity<List<Registre>> getRegistreByType(@PathVariable int annexeId) {
+	public ResponseEntity<List<Registre>> getRegistreByAnnexe(@PathVariable int annexeId) {
 		List<Registre> result = registreService.getRegistrePerAnnexe(annexeId);
 		return ResponseEntity.ok().body(result);
 	}

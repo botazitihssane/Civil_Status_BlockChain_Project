@@ -7,7 +7,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -20,15 +19,10 @@ public class Enregistrement {
 	private LocalDate dateEnregistrement;
 	@ManyToOne
 	private Registre registre;
-	private String lieuEnregistrement;
 	@ManyToOne
-	private Officier officierValidant;
-	@ManyToOne
-	private Agent agent;
+	private Officier officier;
 	@ManyToOne
 	private Personne personne;
-	private boolean status;
-	private String hash;
 
 	public int getId() {
 		return id;
@@ -54,22 +48,6 @@ public class Enregistrement {
 		this.dateEnregistrement = dateEnregistrement;
 	}
 
-	public String getLieuEnregistrement() {
-		return lieuEnregistrement;
-	}
-
-	public void setLieuEnregistrement(String lieuEnregistrement) {
-		this.lieuEnregistrement = lieuEnregistrement;
-	}
-
-	public Officier getOfficierValidant() {
-		return officierValidant;
-	}
-
-	public void setOfficierValidant(Officier officierValidant) {
-		this.officierValidant = officierValidant;
-	}
-
 	public Registre getRegistre() {
 		return registre;
 	}
@@ -78,12 +56,23 @@ public class Enregistrement {
 		this.registre = registre;
 	}
 
-	public Agent getAgent() {
-		return agent;
+	public Enregistrement(int id, String typeEnregistrement, LocalDate dateEnregistrement, Registre registre,
+			Officier officier, Personne personne) {
+		super();
+		this.id = id;
+		this.typeEnregistrement = typeEnregistrement;
+		this.dateEnregistrement = dateEnregistrement;
+		this.registre = registre;
+		this.officier = officier;
+		this.personne = personne;
 	}
 
-	public void setAgent(Agent agent) {
-		this.agent = agent;
+	public Officier getOfficier() {
+		return officier;
+	}
+
+	public void setOfficier(Officier officier) {
+		this.officier = officier;
 	}
 
 	public Personne getPersonne() {
@@ -94,36 +83,8 @@ public class Enregistrement {
 		this.personne = personne;
 	}
 
-	public boolean getStatus() {
-		return status;
-	}
-
-	public void setStatus(boolean status) {
-		this.status = status;
-	}
-
-	public String getHash() {
-		return hash;
-	}
-
-	public void setHash(String hash) {
-		this.hash = hash;
-	}
-
-	public Enregistrement(int id, String typeEnregistrement, LocalDate dateEnregistrement, Registre registre,
-			String lieuEnregistrement, Officier officierValidant, Agent agent, Personne personne, boolean status,
-			String hash) {
+	public Enregistrement() {
 		super();
-		this.id = id;
-		this.typeEnregistrement = typeEnregistrement;
-		this.dateEnregistrement = dateEnregistrement;
-		this.registre = registre;
-		this.lieuEnregistrement = lieuEnregistrement;
-		this.officierValidant = officierValidant;
-		this.agent = agent;
-		this.personne = personne;
-		this.status = status;
-		this.hash = hash;
 	}
 
 }

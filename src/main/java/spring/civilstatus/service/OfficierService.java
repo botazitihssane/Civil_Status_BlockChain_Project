@@ -6,6 +6,8 @@ import spring.civilstatus.models.Annexe;
 import spring.civilstatus.models.Officier;
 
 public interface OfficierService {
+	Annexe findAnnexeByAgentId(Long id);
+
 	Officier createOfficier(Officier officier);
 
 	Officier getOfficier(Long id);
@@ -17,8 +19,4 @@ public interface OfficierService {
 	void updateOfficier(Officier officier);
 
 	List<Officier> getOfficierByNomOrPrenom(String nom);
-
-	List<Officier> getOfficierByGrade(String grade);
-
-	Annexe getAnnexeOfficier(Long id);
 }

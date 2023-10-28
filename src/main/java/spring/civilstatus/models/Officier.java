@@ -1,17 +1,24 @@
 package spring.civilstatus.models;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "Officier")
+@Table(name = "Agent")
 public class Officier extends User {
+
 	private String prenom;
 	private String nom;
-	private String grade;
-	@OneToOne
+	@ManyToOne
 	private Annexe annexe;
+
+	public Officier(String prenom, String nom, Annexe annexe) {
+		super();
+		this.prenom = prenom;
+		this.nom = nom;
+		this.annexe = annexe;
+	}
 
 	public String getPrenom() {
 		return prenom;
@@ -27,14 +34,6 @@ public class Officier extends User {
 
 	public void setNom(String nom) {
 		this.nom = nom;
-	}
-
-	public String getGrade() {
-		return grade;
-	}
-
-	public void setGrade(String grade) {
-		this.grade = grade;
 	}
 
 	public Annexe getAnnexe() {

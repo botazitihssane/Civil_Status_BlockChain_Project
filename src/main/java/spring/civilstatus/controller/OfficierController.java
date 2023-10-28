@@ -12,11 +12,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import spring.civilstatus.models.Annexe;
@@ -28,13 +27,14 @@ import spring.civilstatus.service.OfficierService;
 @RequiredArgsConstructor
 @CrossOrigin("http://localhost:3000")
 public class OfficierController {
+
 	@Autowired
 	private OfficierService officierService;
 
-	@GetMapping(value = "/officier/annexe", produces = { "application/json", "application/xml" })
-	public ResponseEntity<Annexe> getAnnexeOfficier(@Valid @RequestBody Long id) {
-		Annexe result = officierService.getAnnexeOfficier(id);
-		return ResponseEntity.status(HttpStatus.CREATED).body(result);
+	@GetMapping(value = "/officier/annexe/{id}", produces = { "application/json", "application/xml" })
+	public ResponseEntity<Annexe> getAnnexeAgent(@PathVariable Long id) {
+		Annexe result = officierService.findAnnexeByAgentId(id);
+		return ResponseEntity.status(HttpStatus.OK).body(result);
 	}
 
 	@PostMapping(value = "/officier", produces = { "application/json", "application/xml" }, consumes = {
@@ -62,13 +62,6 @@ public class OfficierController {
 		return ResponseEntity.ok().body(result);
 	}
 
-	@GetMapping(value = "/officier/grade/{grade}", produces = { "application/json", "application/xml" })
-	public ResponseEntity<List<Officier>> getOfficierByGrade(@PathVariable String grade) {
-		List<Officier> result = officierService.getOfficierByGrade(grade);
-		return ResponseEntity.ok().body(result);
-	}
-
-	@Operation(summary = "Delete an Officier")
 	@DeleteMapping(value = "/Officier/{officierId}")
 	public ResponseEntity<Void> deleteOfficier(@PathVariable int officierId) {
 		try {

@@ -16,13 +16,14 @@ public class OfficierServiceImpl implements OfficierService {
 	private OfficierRepository officierRepository;
 
 	@Override
-	public Officier createOfficier(Officier officier) {
-		return officierRepository.save(officier);
+	public Annexe findAnnexeByAgentId(Long id) {
+		return officierRepository.findAnnexeByAgentId(id);
+
 	}
 
 	@Override
-	public Officier getOfficier(Long id) {
-		return officierRepository.getOfficierById(id);
+	public Officier createOfficier(Officier officier) {
+		return officierRepository.save(officier);
 	}
 
 	@Override
@@ -42,24 +43,18 @@ public class OfficierServiceImpl implements OfficierService {
 			o.setNom(officier.getNom());
 			o.setPrenom(officier.getPrenom());
 			o.setEmail(officier.getEmail());
-			o.setGrade(officier.getGrade());
 			officierRepository.save(o);
 		}
 	}
 
 	@Override
 	public List<Officier> getOfficierByNomOrPrenom(String nom) {
-		return officierRepository.getOfficiersByNomOrPrenomOrGrade(nom);
+		return officierRepository.getOfficiersByNomOrPrenom(nom);
 	}
 
 	@Override
-	public List<Officier> getOfficierByGrade(String grade) {
-		return officierRepository.getOfficiersByGrade(grade);
-	}
-
-	@Override
-	public Annexe getAnnexeOfficier(Long id) {
-		return officierRepository.findAnnexeByOfficierId(id);
+	public Officier getOfficier(Long id) {
+		return officierRepository.getOfficierById(id);
 	}
 
 }

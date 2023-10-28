@@ -1,7 +1,8 @@
 package spring.civilstatus.service.impl;
 
 import java.util.List;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +12,8 @@ import spring.civilstatus.service.ArrondissementService;
 
 @Service
 public class ArrondissementServiceImpl implements ArrondissementService {
+	private static final Logger logger = LoggerFactory.getLogger(ArrondissementServiceImpl.class);
+
 	@Autowired
 	private ArrondissementRepository arrondissementRepository;
 
@@ -31,7 +34,10 @@ public class ArrondissementServiceImpl implements ArrondissementService {
 
 	@Override
 	public List<Arrondissement> geArrondissementPerVille(String ville) {
-		return arrondissementRepository.getArrondissemetnPerVille(ville);
+		logger.info("Fetching arrondissements for city: " + ville);
+		List<Arrondissement> arrondissements = arrondissementRepository.getArrondissemetnPerVille(ville);
+		logger.info("Retrieved arrondissements: " + arrondissements);
+		return arrondissements;
 	}
 
 	@Override

@@ -2,8 +2,6 @@ package spring.civilstatus.service;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
-
 import spring.civilstatus.models.Region;
 
 public interface RegionService {

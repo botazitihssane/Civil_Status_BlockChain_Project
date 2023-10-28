@@ -12,10 +12,9 @@ import spring.civilstatus.jwt.payload.requests.LoginRequest;
 import spring.civilstatus.jwt.payload.requests.SignupRequest;
 import spring.civilstatus.jwt.payload.responses.MessageResponse;
 import spring.civilstatus.jwt.payload.responses.UserInfoResponse;
-import spring.civilstatus.models.Agent;
+import spring.civilstatus.models.Officier;
 import spring.civilstatus.models.Annexe;
 import spring.civilstatus.models.ERole;
-import spring.civilstatus.models.Officier;
 import spring.civilstatus.models.Role;
 import spring.civilstatus.models.User;
 import spring.civilstatus.repository.AnnexeRepository;
@@ -114,10 +113,6 @@ public class AuthController {
 		User user;
 		if (role.equalsIgnoreCase("officier")) {
 			user = new Officier(signUpRequest.getUsername(), signUpRequest.getEmail(),
-					encoder.encode(signUpRequest.getPassword()), lieu);
-			System.out.print(user);
-		} else if (role.equalsIgnoreCase("agent")) {
-			user = new Agent(signUpRequest.getUsername(), signUpRequest.getEmail(),
 					encoder.encode(signUpRequest.getPassword()), lieu);
 			System.out.print(user);
 		} else {
