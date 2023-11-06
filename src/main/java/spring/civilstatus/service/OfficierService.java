@@ -19,4 +19,8 @@ public interface OfficierService {
 	void updateOfficier(Officier officier);
 
 	List<Officier> getOfficierByNomOrPrenom(String nom);
+
+	void removeUserRole(Long officierId);
+
+	void assignUserRole(Long officierId);
 }

@@ -71,6 +71,12 @@ public class OfficierController {
 			throw ex;
 		}
 	}
+	@DeleteMapping(value = "/officier/removeRole/{officierId}")
+	public ResponseEntity<Void> removeUserRole(@PathVariable Long officierId) {
+	    officierService.removeUserRole(officierId);
+	    return ResponseEntity.noContent().build();
+	}
+
 
 	@PutMapping(value = "/officier", produces = { "application/json", "application/xml" }, consumes = {
 			"application/json", "application/xml" })
@@ -78,4 +84,11 @@ public class OfficierController {
 		officierService.updateOfficier(officier);
 		return ResponseEntity.noContent().build();
 	}
+	
+	@PostMapping(value = "/officier/assignRole/{officierId}")
+	public ResponseEntity<Void> assignUserRole(@PathVariable Long officierId) {
+	    officierService.assignUserRole(officierId);
+	    return ResponseEntity.noContent().build();
+	}
+
 }
