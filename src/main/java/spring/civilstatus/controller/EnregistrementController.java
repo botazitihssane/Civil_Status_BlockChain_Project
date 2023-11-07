@@ -56,4 +56,28 @@ public class EnregistrementController {
 		Enregistrement result = enregistrementService.getById(id);
 		return ResponseEntity.ok().body(result);
 	}
+	
+	@GetMapping(value = "/acteDeces", produces = { "application/json", "application/xml" })
+	public ResponseEntity<List<Enregistrement>> getActeDeces() {
+		List<Enregistrement> result = enregistrementService.getActeDeces();
+		return ResponseEntity.ok().body(result);
+	}
+	
+	@GetMapping(value = "/acteNaissance", produces = { "application/json", "application/xml" })
+	public ResponseEntity<List<Enregistrement>> getActeNaissance() {
+		List<Enregistrement> result = enregistrementService.getActeNaissance();
+		return ResponseEntity.ok().body(result);
+	}
+	
+	@GetMapping(value = "/acteDeces/officier/{nom}", produces = { "application/json", "application/xml" })
+	public ResponseEntity<List<Enregistrement>> getActeDecesByOfficier(@PathVariable String officier) {
+		List<Enregistrement> result = enregistrementService.getActeDecesByOfficier(officier);
+		return ResponseEntity.ok().body(result);
+	}
+	
+	@GetMapping(value = "/acteNaissance/officier/{nom}", produces = { "application/json", "application/xml" })
+	public ResponseEntity<List<Enregistrement>> getActeNaissanceByOfficier(@PathVariable String officier) {
+		List<Enregistrement> result = enregistrementService.getActeNaissanceByOfficier(officier);
+		return ResponseEntity.ok().body(result);
+	}
 }

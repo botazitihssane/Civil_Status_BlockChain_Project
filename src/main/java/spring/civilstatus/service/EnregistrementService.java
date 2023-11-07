@@ -14,4 +14,12 @@ public interface EnregistrementService {
 	Enregistrement getById(int id);
 
 	List<Enregistrement> getEnregistrementByRegistre(int registre);
+
+	List<Enregistrement> getActeDeces();
+
+	List<Enregistrement> getActeNaissance();
+
+	List<Enregistrement> getActeDecesByOfficier(String nom);
+
+	List<Enregistrement> getActeNaissanceByOfficier(String nom);
 }

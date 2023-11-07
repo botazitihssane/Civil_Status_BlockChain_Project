@@ -40,4 +40,24 @@ public class EnregistrementServiceImpl implements EnregistrementService {
 		return enregistrementRepository.getEnregistrementByRegistre(registre);
 	}
 
+	@Override
+	public List<Enregistrement> getActeDeces() {
+		return enregistrementRepository.getActeDeces();
+	}
+
+	@Override
+	public List<Enregistrement> getActeNaissance() {
+		return enregistrementRepository.getActeNaissance();
+	}
+
+	@Override
+	public List<Enregistrement> getActeDecesByOfficier(String nom) {
+		return enregistrementRepository.getEnregistrementByOfficierNomAndActeDeces(nom);
+	}
+
+	@Override
+	public List<Enregistrement> getActeNaissanceByOfficier(String nom) {
+		return enregistrementRepository.getEnregistrementByOfficierNomAndActeNaissance(nom);
+	}
+
 }
